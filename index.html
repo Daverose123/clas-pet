@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Class Pet</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .pet-container {
+            margin-top: 50px;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 15px;
+            width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .pet-image {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            background: url('https://i.imgur.com/U3uDJO7.png') no-repeat center;
+            background-size: contain;
+        }
+
+        .stats {
+            margin: 10px 0;
+            font-size: 1.2rem;
+        }
+
+        .bar-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bar {
+            position: relative;
+            height: 20px;
+            width: 200px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #4caf50, #8bc34a);
+            width: 100%;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        .actions button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #42a5f5, #1e88e5);
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .actions button:hover {
+            transform: scale(1.1);
+        }
+
+        .actions button:active {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Virtual Class Pet</h1>
+    <div class="pet-container">
+        <div class="pet-image"></div>
+        <div class="stats">
+            <div><strong>Hunger:</strong></div>
+            <div class="bar">
+                <div class="bar-fill" id="hunger-bar"></div>
+            </div>
+            <div><strong>Happiness:</strong></div>
+            <div class="bar">
+                <div class="bar-fill" id="happiness-bar"></div>
+            </div>
+        </div>
+        <div class="actions">
+            <button onclick="feedPet()">Feed</button>
+            <button onclick="playWithPet()">Play</button>
+        </div>
+    </div>
+
+    <script>
+        let hunger = 100;
+        let happiness = 100;
+
+        const hungerBar = document.getElementById('hunger-bar');
+        const happinessBar = document.getElementById('happiness-bar');
+
+        // Update the bars
+        function updateBars() {
+            hungerBar.style.width = `${hunger}%`;
+            happinessBar.style.width = `${happiness}%`;
+        }
+
+        // Feed the pet
+        function feedPet() {
+            if (hunger < 100) {
+                hunger += 10;
+                if (hunger > 100) hunger = 100;
+            }
+            updateBars();
+        }
+
+        // Play with the pet
+        function playWithPet() {
+            if (happiness < 100) {
+                happiness += 10;
+                if (happiness > 100) happiness = 100;
+            }
+            updateBars();
+        }
+
+        // Decrease stats over time
+        setInterval(() => {
+            hunger -= 5;
+            happiness -= 5;
+
+            if (hunger < 0) hunger = 0;
+            if (happiness < 0) happiness = 0;
+
+            updateBars();
+        }, 5000);
+
+        updateBars();
+    </script>
+</body>
+</html>
